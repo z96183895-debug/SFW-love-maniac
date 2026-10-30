@@ -1,0 +1,13 @@
+{
+  "name": "the-last-promise",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An original, strictly SFW bullet-dodging boss encounter.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=20" }
+}

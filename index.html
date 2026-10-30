@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101111" />
+    <meta name="description" content="The Last Promise — an original, SFW turn-based bullet-hell encounter against Chara. Dodge, fight, or find another ending." />
+    <title>The Last Promise — A Chara Encounter</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="masthead">
+        <a class="wordmark" href="./" aria-label="The Last Promise home"><span class="brand-symbol" aria-hidden="true">◆</span> LAST PROMISE<span class="wordmark-edition">/ 01</span></a>
+        <div class="masthead-right"><span class="live-dot" aria-hidden="true"></span><span>ORIGINAL SFW PROTOTYPE</span></div>
+      </header>
+
+      <main>
+        <section class="page-heading" aria-labelledby="page-title">
+          <div><p class="eyebrow"><span class="eyebrow-line"></span> ONE ROOM. TWO WAYS OUT.</p><h1 id="page-title">THE LAST <span>PROMISE.</span></h1></div>
+          <p class="heading-note">Your next move matters.<br />Make it count.</p>
+        </section>
+
+        <div class="game-layout">
+          <section class="battle-panel" aria-label="Battle">
+            <div class="battle-topline"><div class="encounter-label"><span class="small-cross" aria-hidden="true">✦</span> CHARA <span>/ ENCOUNTER 01</span></div><span id="phase-label" class="phase-label">PHASE I · THE APPROACH</span></div>
+            <div class="canvas-shell">
+              <canvas id="battle" width="900" height="540" tabindex="0" aria-label="Chara boss fight. Move your SOUL with arrow keys or WASD to dodge attacks inside the battle box.">Your browser needs canvas support to play this game.</canvas>
+              <div id="intro-panel" class="stage-overlay intro-panel">
+                <div class="intro-content"><p class="eyebrow">AN UNFINISHED CONVERSATION</p><h2>One last<br /><span>chance.</span></h2><p class="intro-copy">A familiar face waits in the dark.<br />Will you stand your ground — or reach out?</p><button id="start-button" class="primary-button"><span>BEGIN ENCOUNTER</span><span aria-hidden="true">↗</span></button><p class="overlay-hint">PRESS <kbd>ENTER</kbd> TO BEGIN</p></div>
+              </div>
+              <div id="end-panel" class="stage-overlay end-panel" hidden>
+                <div class="end-content"><p class="eyebrow">THE ROOM FALLS QUIET</p><h2 id="end-title">An ending.</h2><p id="end-copy"></p><button id="restart-button" class="primary-button"><span>PLAY AGAIN</span><span aria-hidden="true">↻</span></button><p class="overlay-hint">EVERY ATTEMPT IS A NEW CHOICE.</p></div>
+              </div>
+              <div class="stage-corner stage-corner-tl" aria-hidden="true"></div><div class="stage-corner stage-corner-tr" aria-hidden="true"></div><div class="stage-corner stage-corner-bl" aria-hidden="true"></div><div class="stage-corner stage-corner-br" aria-hidden="true"></div>
+            </div>
+            <div class="conversation-panel">
+              <div class="conversation-heading"><span>YOUR MOVE</span><span id="status-label">AWAITING YOU</span></div>
+              <p id="dialogue" aria-live="polite">The silence between you is almost a question.</p>
+              <div id="menu-options" class="menu-options" aria-label="Action options"></div>
+              <button id="continue-button" class="continue-button" hidden>CONTINUE <span aria-hidden="true">→</span></button>
+              <div id="fight-timing" class="fight-timing" hidden aria-label="Attack timing meter"><div class="timing-track"><span class="timing-tick timing-tick-one"></span><span class="timing-tick timing-tick-two"></span><span id="timing-target" class="timing-target"></span><span id="timing-marker" class="timing-marker"></span></div></div>
+              <p id="fight-hint" class="fight-hint" hidden>Press Z or Enter when the marker reaches the center.</p>
+              <div id="action-buttons" class="action-buttons" aria-label="Battle commands">
+                <button data-action="fight"><span class="command-icon" aria-hidden="true">╱</span><span>FIGHT</span><small>01</small></button>
+                <button data-action="act"><span class="command-icon" aria-hidden="true">✦</span><span>ACT</span><small>02</small></button>
+                <button data-action="item"><span class="command-icon" aria-hidden="true">▣</span><span>ITEM</span><small>03</small></button>
+                <button data-action="mercy"><span class="command-icon" aria-hidden="true">♡</span><span>MERCY</span><small>04</small></button>
+              </div>
+              <div class="command-footer"><span><kbd>←</kbd> <kbd>→</kbd> SELECT <span class="footer-separator">/</span> <kbd>Z</kbd> CONFIRM <span class="footer-separator">/</span> <kbd>X</kbd> BACK</span><span class="command-footer-mark" aria-hidden="true">◇</span></div>
+            </div>
+            <div id="touch-controls" class="touch-controls" aria-label="Touch movement controls"><button data-dir="up" aria-label="Move up">↑</button><button data-dir="left" aria-label="Move left">←</button><button data-dir="down" aria-label="Move down">↓</button><button data-dir="right" aria-label="Move right">→</button><span>HOLD TO MOVE<br /><small>STAY DETERMINED.</small></span></div>
+          </section>
+
+          <aside class="encounter-sidebar" aria-label="Encounter information">
+            <section class="sidebar-section opponent-section"><p class="sidebar-kicker">THE OTHER SIDE</p><div class="opponent-title"><h2>Chara</h2><span class="opponent-mark" aria-hidden="true">✦</span></div><p class="opponent-subtitle">A promise left unspoken.</p><div class="meter-label"><span>HP</span><span id="boss-hp-text">— / —</span></div><div class="health-track boss-track"><div id="boss-hp-fill" class="health-fill"></div></div><div class="meter-label trust-label"><span>TRUST / MERCY</span><span id="trust-text">0%</span></div><div class="health-track trust-track"><div id="trust-fill" class="health-fill"></div></div></section>
+            <section class="sidebar-section soul-section"><p class="sidebar-kicker">YOUR SIDE</p><div class="soul-title"><span class="soul-icon" aria-hidden="true">♥</span><h2>SOUL</h2><span class="soul-title-note">STAY WITH IT.</span></div><div class="meter-label"><span>HP</span><span id="player-hp-text">— / —</span></div><div class="health-track player-track"><div id="player-hp-fill" class="health-fill"></div></div><div class="turn-row"><span>CURRENT TURN</span><strong id="turn-label">01</strong></div></section>
+            <section class="sidebar-section field-notes"><p class="sidebar-kicker">FIELD NOTES / 001</p><p>Watch the pattern.<br />Find the opening.<br /><span>There is always a choice.</span></p><div class="note-graphic" aria-hidden="true"><span></span><i>✦</i><span></span></div></section>
+            <section class="sidebar-section controls-section"><div class="controls-heading"><p class="sidebar-kicker">TAKE CONTROL</p><button id="help-toggle" class="text-button" aria-expanded="false" aria-controls="help-panel">HELP <span aria-hidden="true">↗</span></button></div><div class="move-instruction"><div class="key-cluster" aria-hidden="true"><kbd>↑</kbd><div><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd></div></div><div><strong>Move your SOUL</strong><span>Arrows or WASD</span></div></div><p class="slow-hint">Hold <kbd>SHIFT</kbd> for precision</p><div id="help-panel" class="help-panel" hidden><p>During attacks, stay inside the box and dodge every projectile. Your SOUL flashes briefly after taking damage.</p><p><kbd>Z</kbd> / <kbd>ENTER</kbd> confirms. <kbd>X</kbd> / <kbd>ESC</kbd> goes back. Time FIGHT at the center. Use ACT to build a path to mercy. ITEM restores HP.</p><p><kbd>P</kbd> pauses. <kbd>M</kbd> toggles sound. Touch the arrows on a phone or tablet.</p></div><div class="utility-buttons"><button id="sound-button" aria-pressed="false">SOUND OFF</button><button id="pause-button" aria-pressed="false">PAUSE</button></div></section>
+          </aside>
+        </div>
+
+        <footer class="site-footer"><p><span class="footer-soul" aria-hidden="true">♥</span> A SMALL FIGHT. A DIFFERENT ENDING.</p><p>ORIGINAL ART & DIALOGUE <span>/</span> SFW <span>/</span> FAN PROTOTYPE</p></footer>
+      </main>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
